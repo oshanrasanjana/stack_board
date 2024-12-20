@@ -63,21 +63,23 @@ class DrawItemContent implements StackItemContent {
 
 /// StackDrawItem
 class StackDrawItem extends StackItem<DrawItemContent> {
-  StackDrawItem({
-    DrawItemContent? content,
-    String? id,
-    double? angle,
-    Size size = const Size(300, 300),
-    Offset? offset,
-    bool? lockZOrder,
-    StackItemStatus? status,
-  }) : super(
+  StackDrawItem(
+      {DrawItemContent? content,
+      String? id,
+      double? angle,
+      Size size = const Size(300, 300),
+      Offset? offset,
+      bool? lockZOrder,
+      StackItemStatus? status,
+      bool? allowChildReciveGestures})
+      : super(
             id: id,
             size: size,
             offset: offset,
             angle: angle,
             status: status,
             lockZOrder: lockZOrder,
+            allowChildReciveGestures: allowChildReciveGestures,
             content: content ??
                 DrawItemContent(
                     size: size.shortestSide, paintContents: <PaintContent>[]));
@@ -90,6 +92,7 @@ class StackDrawItem extends StackItem<DrawItemContent> {
       offset: jsonToOffset(data['offset'] as Map<String, dynamic>),
       status: StackItemStatus.values[data['status'] as int],
       lockZOrder: asNullT<bool>(data['lockZOrder']) ?? false,
+      allowChildReciveGestures: asNullT<bool>(data['allowChildReciveGestures']),
       content:
           DrawItemContent.fromJson(data['content'] as Map<String, dynamic>),
     );
@@ -109,6 +112,7 @@ class StackDrawItem extends StackItem<DrawItemContent> {
     StackItemStatus? status,
     bool? lockZOrder,
     DrawItemContent? content,
+    bool? allowChildReciveGestures,
   }) {
     return StackDrawItem(
       id: id,
@@ -118,6 +122,8 @@ class StackDrawItem extends StackItem<DrawItemContent> {
       status: status ?? this.status,
       lockZOrder: lockZOrder ?? this.lockZOrder,
       content: content ?? this.content,
+      allowChildReciveGestures:
+          allowChildReciveGestures ?? this.allowChildReciveGestures,
     );
   }
 }

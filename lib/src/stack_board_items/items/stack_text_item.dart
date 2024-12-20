@@ -120,6 +120,7 @@ class StackTextItem extends StackItem<TextItemContent> {
     Offset? offset,
     bool? lockZOrder,
     StackItemStatus? status,
+    bool? allowChildReciveGestures,
   }) : super(
           id: id,
           size: size,
@@ -128,6 +129,7 @@ class StackTextItem extends StackItem<TextItemContent> {
           status: status,
           lockZOrder: lockZOrder,
           content: content,
+          allowChildReciveGestures: allowChildReciveGestures,
         );
 
   factory StackTextItem.fromJson(Map<String, dynamic> data) {
@@ -140,6 +142,7 @@ class StackTextItem extends StackItem<TextItemContent> {
       status: StackItemStatus.values[data['status'] as int],
       lockZOrder: asNullT<bool>(data['lockZOrder']) ?? false,
       content: TextItemContent.fromJson(asMap(data['content'])),
+      allowChildReciveGestures: asNullT<bool>(data['allowChildReciveGestures']),
     );
   }
 
@@ -157,6 +160,7 @@ class StackTextItem extends StackItem<TextItemContent> {
     StackItemStatus? status,
     bool? lockZOrder,
     TextItemContent? content,
+    bool? allowChildReciveGestures,
   }) {
     return StackTextItem(
       id: id,
@@ -166,6 +170,8 @@ class StackTextItem extends StackItem<TextItemContent> {
       status: status ?? this.status,
       lockZOrder: lockZOrder ?? this.lockZOrder,
       content: content ?? this.content,
+      allowChildReciveGestures:
+          allowChildReciveGestures ?? this.allowChildReciveGestures,
     );
   }
 }

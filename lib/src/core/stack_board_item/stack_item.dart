@@ -30,12 +30,14 @@ abstract class StackItem<T extends StackItemContent> {
     double? angle = 0,
     StackItemStatus? status = StackItemStatus.selected,
     bool? lockZOrder = false,
+    bool? allowChildReciveGestures,
     this.content,
   })  : id = id ?? _genId(),
         offset = offset ?? Offset.zero,
         angle = angle ?? 0,
         lockZOrder = lockZOrder ?? false,
-        status = status ?? StackItemStatus.selected;
+        status = status ?? StackItemStatus.selected,
+        allowChildReciveGestures = allowChildReciveGestures ?? false;
 
   const StackItem.empty({
     required this.size,
@@ -44,6 +46,7 @@ abstract class StackItem<T extends StackItemContent> {
     required this.status,
     required this.content,
     required this.lockZOrder,
+    this.allowChildReciveGestures = false,
   }) : id = '';
 
   /// id
@@ -63,6 +66,8 @@ abstract class StackItem<T extends StackItemContent> {
 
   final bool lockZOrder;
 
+  final bool allowChildReciveGestures;
+
   /// Content
   final T? content;
 
@@ -74,6 +79,7 @@ abstract class StackItem<T extends StackItemContent> {
     StackItemStatus? status,
     bool? lockZOrder,
     T? content,
+    bool? allowChildReciveGestures,
   });
 
   /// to json
@@ -86,6 +92,7 @@ abstract class StackItem<T extends StackItemContent> {
       'offset': offset.toJson(),
       'status': status.index,
       'lockZOrder': lockZOrder,
+      'allowChildReciveGestures': allowChildReciveGestures,
       if (content != null) 'content': content?.toJson(),
     };
   }

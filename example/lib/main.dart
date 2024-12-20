@@ -22,14 +22,15 @@ class ColorContent extends StackItemContent {
 }
 
 class ColorStackItem extends StackItem<ColorContent> {
-  ColorStackItem({
-    required Size size,
-    String? id,
-    Offset? offset,
-    double? angle,
-    StackItemStatus? status,
-    ColorContent? content,
-  }) : super(
+  ColorStackItem(
+      {required Size size,
+      String? id,
+      Offset? offset,
+      double? angle,
+      StackItemStatus? status,
+      ColorContent? content,
+      bool? allowChildReciveGuestured})
+      : super(
           id: id,
           size: size,
           offset: offset,
@@ -37,6 +38,7 @@ class ColorStackItem extends StackItem<ColorContent> {
           status: status,
           content: content,
           lockZOrder: true,
+          allowChildReciveGestures: allowChildReciveGuestured,
         );
 
   @override
@@ -47,6 +49,7 @@ class ColorStackItem extends StackItem<ColorContent> {
     StackItemStatus? status,
     bool? lockZOrder,
     ColorContent? content,
+    bool? allowChildReciveGestures,
   }) {
     return ColorStackItem(
       id: id, // <= must !!
@@ -55,6 +58,8 @@ class ColorStackItem extends StackItem<ColorContent> {
       angle: angle ?? this.angle,
       status: status ?? this.status,
       content: content ?? this.content,
+      allowChildReciveGuestured:
+          allowChildReciveGestures ?? this.allowChildReciveGestures,
     );
   }
 }

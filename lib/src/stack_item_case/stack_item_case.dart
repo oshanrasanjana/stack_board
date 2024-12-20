@@ -346,6 +346,9 @@ class _StackItemCaseState extends State<StackItemCase> {
                 p.status != n.status,
         childBuilder: (StackItem<StackItemContent> item, Widget c) {
           if (item.status == StackItemStatus.locked) {
+            if (item.allowChildReciveGestures) {
+              return _content(context, item);
+            }
             return IgnorePointer(child: _content(context, item));
           }
           return MouseRegion(
