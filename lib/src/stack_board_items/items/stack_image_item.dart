@@ -131,6 +131,7 @@ class StackImageItem extends StackItem<ImageItemContent> {
     StackItemStatus? status,
     bool? lockZOrder,
     bool? allowChildReciveGestures,
+    bool? tightContent,
   }) : super(
           id: id,
           size: size,
@@ -140,6 +141,7 @@ class StackImageItem extends StackItem<ImageItemContent> {
           content: content,
           lockZOrder: lockZOrder,
           allowChildReciveGestures: allowChildReciveGestures,
+          tightContent: tightContent,
         );
 
   factory StackImageItem.fromJson(Map<String, dynamic> data) {
@@ -153,6 +155,7 @@ class StackImageItem extends StackItem<ImageItemContent> {
       lockZOrder: asNullT<bool>(data['lockZOrder']) ?? false,
       content: ImageItemContent.fromJson(asMap(data['content'])),
       allowChildReciveGestures: asNullT<bool>(data['allowChildReciveGestures']),
+      tightContent: asNullT<bool>(data['tightContent']),
     );
   }
 
@@ -173,6 +176,7 @@ class StackImageItem extends StackItem<ImageItemContent> {
     bool? lockZOrder,
     ImageItemContent? content,
     bool? allowChildReciveGestures,
+    bool? tightContent,
   }) {
     return StackImageItem(
       id: id,
@@ -184,6 +188,7 @@ class StackImageItem extends StackItem<ImageItemContent> {
       content: content ?? this.content,
       allowChildReciveGestures:
           allowChildReciveGestures ?? this.allowChildReciveGestures,
+      tightContent: tightContent ?? this.tightContent,
     );
   }
 }

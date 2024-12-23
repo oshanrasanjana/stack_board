@@ -31,13 +31,15 @@ abstract class StackItem<T extends StackItemContent> {
     StackItemStatus? status = StackItemStatus.selected,
     bool? lockZOrder = false,
     bool? allowChildReciveGestures,
+    bool? tightContent,
     this.content,
   })  : id = id ?? _genId(),
         offset = offset ?? Offset.zero,
         angle = angle ?? 0,
         lockZOrder = lockZOrder ?? false,
         status = status ?? StackItemStatus.selected,
-        allowChildReciveGestures = allowChildReciveGestures ?? false;
+        allowChildReciveGestures = allowChildReciveGestures ?? false,
+        tightContent = tightContent ?? false;
 
   const StackItem.empty({
     required this.size,
@@ -47,6 +49,7 @@ abstract class StackItem<T extends StackItemContent> {
     required this.content,
     required this.lockZOrder,
     this.allowChildReciveGestures = false,
+    this.tightContent = false,
   }) : id = '';
 
   /// id
@@ -66,7 +69,11 @@ abstract class StackItem<T extends StackItemContent> {
 
   final bool lockZOrder;
 
+  ///allow to recive gestures while [status] is [StackItemStatus.locked]
   final bool allowChildReciveGestures;
+
+  ///allows to tighten the box that content is displayed
+  final bool tightContent;
 
   /// Content
   final T? content;
@@ -80,6 +87,7 @@ abstract class StackItem<T extends StackItemContent> {
     bool? lockZOrder,
     T? content,
     bool? allowChildReciveGestures,
+    bool? tightContent,
   });
 
   /// to json
@@ -93,6 +101,7 @@ abstract class StackItem<T extends StackItemContent> {
       'status': status.index,
       'lockZOrder': lockZOrder,
       'allowChildReciveGestures': allowChildReciveGestures,
+      'tightContent': tightContent,
       if (content != null) 'content': content?.toJson(),
     };
   }

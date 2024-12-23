@@ -71,7 +71,8 @@ class StackDrawItem extends StackItem<DrawItemContent> {
       Offset? offset,
       bool? lockZOrder,
       StackItemStatus? status,
-      bool? allowChildReciveGestures})
+      bool? allowChildReciveGestures,
+      bool? tightContent})
       : super(
             id: id,
             size: size,
@@ -80,6 +81,7 @@ class StackDrawItem extends StackItem<DrawItemContent> {
             status: status,
             lockZOrder: lockZOrder,
             allowChildReciveGestures: allowChildReciveGestures,
+            tightContent: tightContent,
             content: content ??
                 DrawItemContent(
                     size: size.shortestSide, paintContents: <PaintContent>[]));
@@ -93,6 +95,7 @@ class StackDrawItem extends StackItem<DrawItemContent> {
       status: StackItemStatus.values[data['status'] as int],
       lockZOrder: asNullT<bool>(data['lockZOrder']) ?? false,
       allowChildReciveGestures: asNullT<bool>(data['allowChildReciveGestures']),
+      tightContent: asNullT<bool>(data['tightContent']) ,
       content:
           DrawItemContent.fromJson(data['content'] as Map<String, dynamic>),
     );
@@ -113,6 +116,7 @@ class StackDrawItem extends StackItem<DrawItemContent> {
     bool? lockZOrder,
     DrawItemContent? content,
     bool? allowChildReciveGestures,
+    bool? tightContent,
   }) {
     return StackDrawItem(
       id: id,
@@ -124,6 +128,7 @@ class StackDrawItem extends StackItem<DrawItemContent> {
       content: content ?? this.content,
       allowChildReciveGestures:
           allowChildReciveGestures ?? this.allowChildReciveGestures,
+      tightContent: tightContent ?? this.tightContent,
     );
   }
 }

@@ -458,15 +458,19 @@ class _StackItemCaseState extends State<StackItemCase> {
           (StackItem<StackItemContent> p, StackItem<StackItemContent> n) =>
               p.size != n.size || p.status != n.status,
       childBuilder: (StackItem<StackItemContent> item, Widget c) {
+        final BoxConstraints constr = item.tightContent
+            ? BoxConstraints.tight(item.size)
+            : BoxConstraints.loose(item.size);
         return Padding(
-            padding: item.status == StackItemStatus.idle
-                ? EdgeInsets.zero
-                : EdgeInsets.fromLTRB(
-                    style.buttonSize / 2,
-                    style.buttonSize * 1.5,
-                    style.buttonSize / 2,
-                    style.buttonSize * 1.5),
-            child: SizedBox.fromSize(size: item.size, child: c));
+          padding: item.status == StackItemStatus.idle
+              ? EdgeInsets.zero
+              : EdgeInsets.fromLTRB(
+                  style.buttonSize / 2,
+                  style.buttonSize * 1.5,
+                  style.buttonSize / 2,
+                  style.buttonSize * 1.5),
+          child: ConstrainedBox(constraints: constr, child: c),
+        );
       },
       child: content,
     );
