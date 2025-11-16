@@ -16,7 +16,7 @@ class ColorContent extends StackItemContent {
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'color': color.value,
+      'color': color.toARGB32(),
     };
   }
 }

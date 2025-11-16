@@ -347,7 +347,7 @@ class _ColorPicBtnState extends State<ColorPicBtn> {
   Future<void> _onTap() async {
     await showDialog(
       context: context,
-      barrierColor: Colors.black.withOpacity(0.1),
+      barrierColor: Colors.black.withAlpha(25),
       builder: (_) => _buildColorPicker(),
     );
 
@@ -607,7 +607,7 @@ class _GrayscalePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..shader = LinearGradient(
-        colors: <Color>[Colors.black, Colors.black.withOpacity(0)],
+        colors: <Color>[Colors.black, Colors.black.withAlpha(0)],
         begin: Alignment.bottomLeft,
         end: Alignment.topLeft,
       ).createShader(Rect.fromLTWH(0, 0, size.width, size.height));
