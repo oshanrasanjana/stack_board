@@ -283,9 +283,11 @@ class _HomePageState extends State<HomePage> {
         customBuilder: (StackItem<StackItemContent> item) {
           if (item is StackTextItem) {
             return StackTextCase(item: item);
-          } else if (item is StackDrawItem) {
-            return StackDrawCase(item: item);
-          } else if (item is StackImageItem) {
+           }
+          // else if (item is StackDrawItem) {
+          //   return StackDrawCase(item: item);
+          // } 
+          else if (item is StackImageItem) {
             return StackImageCase(item: item);
           } else if (item is ColorStackItem) {
             return Container(
