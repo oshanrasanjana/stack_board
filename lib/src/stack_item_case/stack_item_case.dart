@@ -8,6 +8,7 @@ import 'package:stack_board/src/core/stack_board_item/stack_item_content.dart';
 import 'package:stack_board/src/core/stack_board_item/stack_item_status.dart';
 import 'package:stack_board/src/stack_board.dart';
 import 'package:stack_board/src/stack_item_case/config_builder.dart';
+import 'package:stack_board/stack_items.dart';
 
 /// * Operate box
 /// * Used to wrap child widgets to provide functions of operate box
@@ -119,9 +120,6 @@ class _StackItemCaseState extends State<StackItemCase> {
     if (status == StackItemStatus.moving) {
       return SystemMouseCursors.grabbing;
     } else if (status == StackItemStatus.editing) {
-      return SystemMouseCursors.click;
-    ///Added as of 23/2/2026
-    } else if (status == StackItemStatus.locked) {
       return SystemMouseCursors.click;
     }
     return SystemMouseCursors.grab;
@@ -347,11 +345,12 @@ class _StackItemCaseState extends State<StackItemCase> {
             (StackItem<StackItemContent> p, StackItem<StackItemContent> n) =>
                 p.status != n.status,
         childBuilder: (StackItem<StackItemContent> item, Widget c) {
-          if (item.status == StackItemStatus.locked) {
-            if (item.allowChildReciveGestures) {
-              return _content(context, item);
-            }
-            return IgnorePointer(child: _content(context, item));
+          final bool isHardLocked = item is StackDrawItem && item.isHardLocked;
+          if (item.status == StackItemStatus.locked || isHardLocked) {
+            return IgnorePointer(
+              ignoring: !item.allowChildReciveGestures,
+              child: _content(context, item),
+            );
           }
           return MouseRegion(
             cursor: _cursor(item.status),
