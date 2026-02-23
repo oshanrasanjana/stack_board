@@ -169,7 +169,8 @@ class _HomePageState extends State<HomePage> {
 
   /// Add draw item
   void _addDrawItem() {
-    _boardController.addItem(StackDrawItem(size: const Size.square(300)));
+    _boardController.addItem(
+        StackDrawItem(size: const Size.square(300), isHardLocked: false));
   }
 
   /// Add custom item
@@ -283,10 +284,10 @@ class _HomePageState extends State<HomePage> {
         customBuilder: (StackItem<StackItemContent> item) {
           if (item is StackTextItem) {
             return StackTextCase(item: item);
-           }
+          }
           // else if (item is StackDrawItem) {
           //   return StackDrawCase(item: item);
-          // } 
+          // }
           else if (item is StackImageItem) {
             return StackImageCase(item: item);
           } else if (item is ColorStackItem) {

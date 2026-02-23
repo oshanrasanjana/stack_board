@@ -6,6 +6,7 @@ import 'package:stack_board/src/core/stack_board_item/stack_item_content.dart';
 import 'package:stack_board/src/core/stack_board_item/stack_item_status.dart';
 import 'package:stack_board/src/helpers/ex_list.dart';
 import 'package:stack_board/src/helpers/safe_value_notifier.dart';
+import 'package:stack_board/stack_items.dart';
 
 class StackConfig {
   StackConfig({
@@ -180,8 +181,8 @@ class StackBoardController extends SafeValueNotifier<StackConfig> {
       final bool selectedOne = item.id == id;
       // Update the status only if the item is not locked
       ///Updated as of 23/2/2026
-      debugPrint('Stackboard Status ${item.status.name} $id ${item.content?.toJson()}');
-      if (item.status != StackItemStatus.locked) {
+      final bool isHardLocked = item is StackDrawItem && item.isHardLocked;
+      if (item.status != StackItemStatus.locked || !isHardLocked) {
         data[i] = item.copyWith(
             status:
                 selectedOne ? StackItemStatus.selected : StackItemStatus.idle);

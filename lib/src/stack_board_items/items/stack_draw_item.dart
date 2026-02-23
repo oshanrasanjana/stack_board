@@ -63,17 +63,18 @@ class DrawItemContent implements StackItemContent {
 
 /// StackDrawItem
 class StackDrawItem extends StackItem<DrawItemContent> {
-  StackDrawItem(
-      {DrawItemContent? content,
-      String? id,
-      double? angle,
-      Size size = const Size(300, 300),
-      Offset? offset,
-      bool? lockZOrder,
-      StackItemStatus? status,
-      bool? allowChildReciveGestures,
-      bool? tightContent})
-      : super(
+  StackDrawItem({
+    DrawItemContent? content,
+    String? id,
+    double? angle,
+    Size size = const Size(300, 300),
+    Offset? offset,
+    bool? lockZOrder,
+    StackItemStatus? status,
+    bool? allowChildReciveGestures,
+    bool? tightContent,
+    required this.isHardLocked,
+  }) : super(
             id: id,
             size: size,
             offset: offset,
@@ -95,10 +96,21 @@ class StackDrawItem extends StackItem<DrawItemContent> {
       status: StackItemStatus.values[data['status'] as int],
       lockZOrder: asNullT<bool>(data['lockZOrder']) ?? false,
       allowChildReciveGestures: asNullT<bool>(data['allowChildReciveGestures']),
-      tightContent: asNullT<bool>(data['tightContent']) ,
+      tightContent: asNullT<bool>(data['tightContent']),
       content:
           DrawItemContent.fromJson(data['content'] as Map<String, dynamic>),
+      isHardLocked: asNullT<bool>(data['isHardLocked']) ?? false,
     );
+  }
+
+  ///Decide Weather allowed tro move , delete or rezize or select the item
+  final bool isHardLocked;
+
+  @override
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> json = super.toJson();
+    json['isHardLocked'] = isHardLocked;
+    return json;
   }
 
   /// * 覆盖绘制内容
@@ -119,16 +131,16 @@ class StackDrawItem extends StackItem<DrawItemContent> {
     bool? tightContent,
   }) {
     return StackDrawItem(
-      id: id,
-      size: size ?? this.size,
-      offset: offset ?? this.offset,
-      angle: angle ?? this.angle,
-      status: status ?? this.status,
-      lockZOrder: lockZOrder ?? this.lockZOrder,
-      content: content ?? this.content,
-      allowChildReciveGestures:
-          allowChildReciveGestures ?? this.allowChildReciveGestures,
-      tightContent: tightContent ?? this.tightContent,
-    );
+        id: id,
+        size: size ?? this.size,
+        offset: offset ?? this.offset,
+        angle: angle ?? this.angle,
+        status: status ?? this.status,
+        lockZOrder: lockZOrder ?? this.lockZOrder,
+        content: content ?? this.content,
+        allowChildReciveGestures:
+            allowChildReciveGestures ?? this.allowChildReciveGestures,
+        tightContent: tightContent ?? this.tightContent,
+        isHardLocked: isHardLocked);
   }
 }
