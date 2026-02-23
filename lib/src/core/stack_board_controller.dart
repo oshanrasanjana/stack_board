@@ -179,7 +179,8 @@ class StackBoardController extends SafeValueNotifier<StackConfig> {
       final StackItem<StackItemContent> item = data[i];
       final bool selectedOne = item.id == id;
       // Update the status only if the item is not locked
-      if (item.status != StackItemStatus.locked || selectedOne) {
+      ///Updated as of 23/2/2026
+      if (item.status != StackItemStatus.locked) {
         data[i] = item.copyWith(
             status:
                 selectedOne ? StackItemStatus.selected : StackItemStatus.idle);

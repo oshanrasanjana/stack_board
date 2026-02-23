@@ -120,8 +120,10 @@ class _StackItemCaseState extends State<StackItemCase> {
       return SystemMouseCursors.grabbing;
     } else if (status == StackItemStatus.editing) {
       return SystemMouseCursors.click;
+    ///Added as of 23/2/2026
+    } else if (status == StackItemStatus.locked) {
+      return SystemMouseCursors.click;
     }
-
     return SystemMouseCursors.grab;
   }
 
